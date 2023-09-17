@@ -295,5 +295,6 @@ pip-selfcheck.json
 .ionide
 
 sitemap*.xml
+.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/venv,dotenv,python,pycharm+all,visualstudiocode

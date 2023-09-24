@@ -14,10 +14,20 @@ class MongoRepository:
         openai_embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
         client = MongoClient(os.getenv("MONGODB_ATLAS_CLUSTER_URI"))
 
-        db_name = "govgpt"
-        embeddings_collection_name = "embeddings"
+        db_name = os.getenv("MONGODB_DB_NAME", "govgpt")
+        embeddings_collection_name = os.getenv(
+            "MONGODB_COLLECTION_NAME", "embeddings")
+
         embeddings_collection = client[db_name][embeddings_collection_name]
-        embeddings_index_name = "embedding_vector_search"
+        embeddings_index_name = os.getenv(
+            "MONGODB_INDEX_NAME", "vector_search")
+
+
+        # db_name = "govgpt"
+        # embeddings_collection_name = "embeddings"
+        
+        # embeddings_collection = client[db_name][embeddings_collection_name]
+        # embeddings_index_name = "vector_search"
 
         self.vector_store = MongoDBAtlasVectorSearch(
             collection=embeddings_collection,

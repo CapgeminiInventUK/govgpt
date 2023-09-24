@@ -43,7 +43,7 @@ app.add_middleware(
 load_dotenv(verbose=True)
 
 
-def get_qa_chain():
+def get_qa_chain(temperature: float):
     OpenAIEmbeddings(
         openai_api_key=os.getenv("OPENAI_API_KEY"))
     instance = MongoRepository().vector_store
@@ -59,8 +59,8 @@ def get_qa_chain():
     )
 
     return RetrievalQAWithSourcesChain.from_chain_type(llm=ChatOpenAI(
-        model_name="gpt-3.5-turbo-16k",
-        temperature=0.2,
+        model_name=os.getenv("OPENAI_MODEL", "gpt-3.5-turbo-16k"),
+        temperature=temperature,
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         verbose=True
     ),
@@ -77,7 +77,7 @@ def get_qa_chain():
 def my_api(request: PromptRequest):
     query: str = request.prompt
     # process the input string here
-    qa = get_qa_chain()
+    qa = get_qa_chain(request.temperature)
     with get_openai_callback() as cb:
         output = qa({"question": query},
                     callbacks=[ConsoleCallbackHandler()])

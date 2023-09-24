@@ -178,6 +178,7 @@ for filename in os.listdir("to_do_sitemaps"):
         total_cost = tokens_utils.calculate_embedding_token_cost(total_tokens)
         grand_total_tokens += total_tokens
         grand_total_cost += total_cost
+        shutil.move(f, 'done_sitemaps/' + filename)
 
         print('----------------------------------------------------')
         print('Number of documents: ' + str(len(documents)))
@@ -185,9 +186,7 @@ for filename in os.listdir("to_do_sitemaps"):
         print('Total cost: $' + str(total_cost))
         print('Finished sitemap: ' + f + ' @ ' + str(datetime.now()))
         print('----------------------------------------------------')
-        print('Grand total tokens: ' + str(grand_total_tokens))
-        print('Grand total cost: $' + str(grand_total_cost))
-        print('----------------------------------------------------')
 
-        shutil.move(f, 'done_sitemaps/' + filename)
-# 31494
+print('Grand total tokens: ' + str(grand_total_tokens))
+print('Grand total cost: $' + str(grand_total_cost))
+print('----------------------------------------------------')

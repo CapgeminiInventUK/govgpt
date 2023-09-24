@@ -15,6 +15,3 @@ pymongo==4.5.0
 pydantic==2.3.0
 nest_asyncio==1.5.7
 uvicorn==0.23.2
-
-streamlit==1.26.0
-streamlit-chat==0.1.1

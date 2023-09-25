@@ -18,20 +18,15 @@ class MongoRepository:
         embeddings_collection_name = os.getenv(
             "MONGODB_COLLECTION_NAME", "embeddings")
 
-        embeddings_collection = client[db_name][embeddings_collection_name]
-        embeddings_index_name = os.getenv(
+        self.embeddings_collection = client[db_name][embeddings_collection_name]
+        self.embeddings_key = os.getenv(
+            "MONGODB_FIELD_NAME",  "embedding")
+        self.embeddings_index_name = os.getenv(
             "MONGODB_INDEX_NAME", "vector_search")
 
-
-        # db_name = "govgpt"
-        # embeddings_collection_name = "embeddings"
-        
-        # embeddings_collection = client[db_name][embeddings_collection_name]
-        # embeddings_index_name = "vector_search"
-
         self.vector_store = MongoDBAtlasVectorSearch(
-            collection=embeddings_collection,
-            index_name=embeddings_index_name,
+            collection=self.embeddings_collection,
+            index_name=self.embeddings_index_name,
             embedding=openai_embeddings,
-            embedding_key="embedding",
+            embedding_key=self.embeddings_key,
         )

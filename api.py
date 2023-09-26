@@ -44,8 +44,6 @@ load_dotenv(verbose=True)
 
 
 def get_qa_chain(temperature: float):
-    OpenAIEmbeddings(
-        openai_api_key=os.getenv("OPENAI_API_KEY"))
     instance = MongoRepository().vector_store
 
     tech_template = """You are the GDS Bot your goals is to provide answers and summaries to the provided questions based only on the context that has been provided. Please give as much detail and information as possible. I would rather you were verbose than too brief. In scenarios when listing a number of different examples please, use a number list and provide as much details as possible for each example. If the context does not answer the question then just respond and say the context does not provide enough information to answer the question.
